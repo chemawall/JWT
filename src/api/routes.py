@@ -35,9 +35,8 @@ def signup():
 @api.route('/login', methods=['POST'])
 def login():
     data = request.json
-
     user = User.query.filter_by(email=data['email'], password=data['password']).first()
-
+    
     if user:
         token = create_access_token(identity=user.id)
         return jsonify({"token":token}),200

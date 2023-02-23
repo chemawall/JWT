@@ -1,6 +1,7 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
+			token: null,
 			message: null,
 			demo: [
 				{
@@ -17,6 +18,42 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
+			
+			login: async (email,password) =>{
+					const opts = {
+
+									method: 'POST',
+									headers: {
+										"Content-Type": "application/json"
+									},
+									body: JSON.stringify({
+										"email": email,
+										"password": password
+										
+										})
+									};
+					
+					
+						try {
+							const resp = await fetch("https://3001-4geeksacade-reactflaskh-vp4sjbpvukj.ws-eu87.gitpod.io/api/login",opts)
+							if(resp.status !== 200){
+									alert("hay un error aqui");
+									return false;
+								}
+							
+							const data = await resp.json();
+							console.log("viene de backed", data);						
+							sessionStorage.setItem("token", data.token);
+							setStore({token: data.token});
+							return true;							
+						}
+						catch(error){
+							console.error("Jay un error en catch")
+						}	  
+
+				
+			},
+			
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
