@@ -7,7 +7,7 @@ export const Login = () => {
 const {store, actions} = useContext(Context);
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");    
-const token = sessionStorage.getItem("token");
+
 
    
 const handleClick = () => {
@@ -20,7 +20,7 @@ const handleClick = () => {
 
     return (
         <>
-        {(token && token != "" && token != undefined ) ? "You are logged" : 
+        {(store.token && store.token != "" && store.token != undefined ) ? "You are logged" : 
              <div className="container">
                 
                     <div className="mb-3">
