@@ -16,8 +16,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			]
 		},
+
+		
 		actions: {
 			// Use getActions to call a function within a fuction
+
+			syncTokenFromSessionStorage= () =>{
+
+				const token = sessionStorage.getItem("token");
+				if (token && token !="" && token != undefined ) setStore({token: data.token});
+
+			
+			}
 			
 			login: async (email,password) =>{
 					const opts = {
@@ -44,7 +54,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 							const data = await resp.json();
 							console.log("viene de backed", data);						
 							sessionStorage.setItem("token", data.token);
-							setStore({token: data.token});
 							return true;							
 						}
 						catch(error){
