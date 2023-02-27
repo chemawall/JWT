@@ -9,7 +9,8 @@ export const Private = () => {
 	return (
 		<div className="text-center mt-5">
 			{(store.token && store.token !="" && store.token != undefined) ? 
-			<h1>Alto, estás logueado</h1>
+			
+			<iframe width="560" height="315" src="https://www.youtube.com/embed/6iFbuIpe68k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 			:
 			<h1>Logueate antes miarma</h1> }
 			

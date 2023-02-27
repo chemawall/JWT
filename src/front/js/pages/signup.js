@@ -30,6 +30,8 @@ fetch("https://3001-4geeksacade-reactflaskh-vp4sjbpvukj.ws-eu88.gitpod.io/api/si
     return response.json();
         }) 
 
+    
+
 }
 
                     
@@ -38,19 +40,33 @@ fetch("https://3001-4geeksacade-reactflaskh-vp4sjbpvukj.ws-eu88.gitpod.io/api/si
         <>
         {store.token && store.token != "" && store.token != undefined  ? ("You are logged"):( 
              <div className="container">
-                
-                    <div className="mb-3">
+                    <h1>Regístrate para usar la app</h1>
+                    <div className="mb-3 col-lg-3">
                         <label for="exampleInputEmail1" className="form-label">Email address</label>
                         <input type="email" value ={email} onChange={(e)=> setEmail(e.target.value)} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
                         <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
                     </div>
-                    <div className="mb-3">
+                    <div className="mb-3 col-lg-3">
                         <label for="exampleInputPassword1" className="form-label">Password</label>
                         <input type="password" value={password} onChange={(e)=> setPassword(e.target.value)} className="form-control" id="exampleInputPassword1"/>
                     </div>
                    
-                        <button onClick={handleClickSignup}  className="btn btn-primary">Submit</button>
-             
+                        <button onClick={handleClickSignup} data-bs-toggle="modal" data-bs-target="#exampleModal" className="btn btn-success">Submit</button>
+
+
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Usuario creado correctamente
+                                    </div>
+                                    
+                                    </div>
+                            </div>
+                        </div>
             </div>
         )}
         </>
