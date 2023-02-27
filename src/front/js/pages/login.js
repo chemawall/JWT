@@ -1,18 +1,21 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
+import {useNavigate} from "react-router-dom"
 import "../../styles/home.css";
 
 
 export const Login = () => {
 const {store, actions} = useContext(Context);
 const [email, setEmail] = useState("");
-const [password, setPassword] = useState("");    
+const [password, setPassword] = useState("");
+const navigate = useNavigate();   
 
 
    
 const handleClick = () => {
         actions.login(email,password).then(()=>{
             console.log("todo ok")
+            navigate("/private")
         })
     
 }
@@ -20,7 +23,7 @@ const handleClick = () => {
 
     return (
         <>
-        {(store.token && store.token != "" && store.token != undefined ) ? "You are logged" : 
+        {store.token && store.token != "" && store.token != undefined  ? ("You are logged"):( 
              <div className="container">
                 
                     <div className="mb-3">
@@ -35,8 +38,8 @@ const handleClick = () => {
                    
                         <button onClick={handleClick}  className="btn btn-primary">Submit</button>
              
-        </div>
-          }     
+            </div>
+        )}
         </>
 
     );

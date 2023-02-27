@@ -21,13 +21,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 		actions: {
 			// Use getActions to call a function within a fuction
 
-			syncTokenFromSessionStorage= () =>{
+			syncTokenFromSessionStorage: () =>{
 
 				const token = sessionStorage.getItem("token");
-				if (token && token !="" && token != undefined ) setStore({token: data.token});
+				console.log("Aplicattion just loaded, synching the local storage")
+				if (token && token !="" && token != undefined ) setStore({token: token});
 
 			
-			}
+			},
+
+			logout: () =>{
+
+				sessionStorage.removeItem("token");
+				console.log("Login out")
+				setStore({token: null});
+
+			
+			},
 			
 			login: async (email,password) =>{
 					const opts = {
@@ -45,7 +55,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					
 					
 						try {
-							const resp = await fetch("https://3001-4geeksacade-reactflaskh-vp4sjbpvukj.ws-eu87.gitpod.io/api/login",opts)
+							const resp = await fetch("https://3001-4geeksacade-reactflaskh-vp4sjbpvukj.ws-eu88.gitpod.io/api/login",opts)
 							if(resp.status !== 200){
 									alert("hay un error aqui");
 									return false;
@@ -67,17 +77,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 
-			getMessage: async () => {
-				try{
-					// fetching data from the backend
-					const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
-					const data = await resp.json()
-					setStore({ message: data.message })
-					// don't forget to return something, that is how the async resolves
-					return data;
-				}catch(error){
-					console.log("Error loading message from backend", error)
+			getMessage: () => {
+				const store = getStore();
+				const opts = {
+					headers:{
+						"Authorization": "Bearer " + store.token
+					}
 				}
+				fetch(process.env.BACKEND_URL + "/api/hello", opts)
+					.then(resp => resp.json())
+					.then(data => setStore({message: data.message}))
+					.catch(error => console.log("Error loading message from backend", error))
 			},
 			changeColor: (index, color) => {
 				//get the store
